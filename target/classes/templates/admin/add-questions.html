@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Questions - MyIQ Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+    <link rel="stylesheet" th:href="@{/css/questions.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-brain"></i>
+                    <div class="logo-text">
+                        <h1>MyIQ</h1>
+                        <span>Admin Panel</span>
+                    </div>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="nav-item">
+                        <a href="/admin/dashboard" class="nav-link">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/admin/manage-quizzes" class="nav-link">
+                            <i class="fas fa-clipboard-list"></i>
+                            <span>Manage Quizzes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="/admin/add-questions" class="nav-link">
+                            <i class="fas fa-plus-circle"></i>
+                            <span>Add Questions</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/admin/view-results" class="nav-link">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>View Results</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/admin/users" class="nav-link">
+                            <i class="fas fa-users"></i>
+                            <span>Users</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/admin/settings" class="nav-link">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <form action="/logout" method="post" style="margin: 0;">
+                    <button type="submit" class="logout-btn" style="background: none; border: none; width: 100%; text-align: left;">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </button>
+                </form>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="content-header">
+                <div class="header-left">
+                    <h2>Add Questions</h2>
+                    <p>Create multiple questions for your quiz system</p>
+                </div>
+                <div class="header-right">
+                    <div class="question-counter">
+                        <span>Total Questions: <span id="question-count">1</span></span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="questions-content">
+                <!-- Quiz Selection -->
+                <div class="quiz-selection">
+                    <label for="quiz-select">Select Quiz:</label>
+                    <select id="quiz-select" required>
+                        <option value="">Choose a quiz...</option>
+                        <option value="1">General Knowledge Quiz</option>
+                        <option value="2">Science & Technology</option>
+                        <option value="3">History & Geography</option>
+                    </select>
+                </div>
+
+                <!-- Questions Container -->
+                <div id="questions-container">
+                    <div class="question-card" data-question-id="1">
+                        <div class="question-header">
+                            <h3>Question 1</h3>
+                            <button type="button" class="remove-question" onclick="removeQuestion(1)" style="display: none;">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="question-form">
+                            <div class="form-group">
+                                <label>Question Text</label>
+                                <textarea placeholder="Enter your question here..." rows="3" required></textarea>
+                            </div>
+                            
+                            <div class="options-grid">
+                                <div class="form-group">
+                                    <label>Option A</label>
+                                    <input type="text" placeholder="Option A" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Option B</label>
+                                    <input type="text" placeholder="Option B" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Option C</label>
+                                    <input type="text" placeholder="Option C" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Option D</label>
+                                    <input type="text" placeholder="Option D" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Correct Answer</label>
+                                    <select required>
+                                        <option value="">Select correct answer</option>
+                                        <option value="A">Option A</option>
+                                        <option value="B">Option B</option>
+                                        <option value="C">Option C</option>
+                                        <option value="D">Option D</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Category</label>
+                                    <select required>
+                                        <option value="">Select category</option>
+                                        <option value="General Knowledge">General Knowledge</option>
+                                        <option value="Mathematics">Mathematics</option>
+                                        <option value="Science">Science</option>
+                                        <option value="History">History</option>
+                                        <option value="Geography">Geography</option>
+                                        <option value="Literature">Literature</option>
+                                        <option value="Technology">Technology</option>
+                                        <option value="Sports">Sports</option>
+                                        <option value="Arts">Arts</option>
+                                        <option value="Current Affairs">Current Affairs</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button type="button" class="btn btn-outline" onclick="addQuestion()">
+                        <i class="fas fa-plus"></i>
+                        Add More Questions
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="submitAllQuestions()">
+                        <i class="fas fa-save"></i>
+                        Submit All Questions
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script th:src="@{/js/admin.js}"></script>
+    <script th:src="@{/js/questions.js}"></script>
+</body>
+</html>
