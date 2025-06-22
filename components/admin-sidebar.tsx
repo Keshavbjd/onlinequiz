@@ -1,23 +1,33 @@
-"use client"
+"use client";
 
-import { LayoutDashboard, FileQuestion, Plus, BarChart3, LogOut, Users, Settings } from "lucide-react"
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
+import {
+  LayoutDashboard,
+  FileQuestion,
+  Plus,
+  BarChart3,
+  LogOut,
+  Users,
+  Settings,
+  Play,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 interface SidebarProps {
-  activeTab: string
-  onTabChange: (tab: string) => void
+  activeTab: string;
+  onTabChange: (tab: string) => void;
 }
 
 export function AdminSidebar({ activeTab, onTabChange }: SidebarProps) {
   const menuItems = [
     { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
+    { id: "take-quiz", label: "Take Quiz", icon: Play },
     { id: "manage-quizzes", label: "Manage Quizzes", icon: FileQuestion },
     { id: "add-questions", label: "Add Questions", icon: Plus },
     { id: "view-results", label: "View Results", icon: BarChart3 },
     { id: "users", label: "Users", icon: Users },
     { id: "settings", label: "Settings", icon: Settings },
-  ]
+  ];
 
   return (
     <div className="w-64 bg-white border-r border-gray-200 h-screen flex flex-col">
@@ -38,7 +48,7 @@ export function AdminSidebar({ activeTab, onTabChange }: SidebarProps) {
       <nav className="flex-1 p-4">
         <ul className="space-y-2">
           {menuItems.map((item) => {
-            const Icon = item.icon
+            const Icon = item.icon;
             return (
               <li key={item.id}>
                 <Button
@@ -55,18 +65,21 @@ export function AdminSidebar({ activeTab, onTabChange }: SidebarProps) {
                   {item.label}
                 </Button>
               </li>
-            )
+            );
           })}
         </ul>
       </nav>
 
       {/* Logout Section */}
       <div className="p-4 border-t border-gray-200">
-        <Button variant="ghost" className="w-full justify-start text-red-600 hover:bg-red-50">
+        <Button
+          variant="ghost"
+          className="w-full justify-start text-red-600 hover:bg-red-50"
+        >
           <LogOut className="mr-3 h-5 w-5" />
           Logout
         </Button>
       </div>
     </div>
-  )
+  );
 }
