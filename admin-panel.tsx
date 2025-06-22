@@ -4,6 +4,7 @@ import { useState } from "react";
 import { AdminSidebar } from "./components/admin-sidebar";
 import { QuestionForm } from "./components/question-form";
 import { QuizPlayer } from "./components/quiz-player";
+import { UserHeader } from "./components/user-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BarChart3, Users, FileQuestion, TrendingUp } from "lucide-react";
 
@@ -148,8 +149,9 @@ export default function AdminPanel() {
       <AdminSidebar activeTab={activeTab} onTabChange={setActiveTab} />
 
       {/* Main Content */}
-      <div className="flex-1 overflow-auto">
-        <div className="p-8">{renderContent()}</div>
+      <div className="flex-1 overflow-auto flex flex-col">
+        <UserHeader />
+        <div className="flex-1 p-8">{renderContent()}</div>
       </div>
     </div>
   );
