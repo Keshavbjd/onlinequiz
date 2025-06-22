@@ -1,7 +1,6 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
-import { verifyToken } from "@/lib/auth";
 
 interface User {
   id: number;
@@ -28,21 +27,36 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     // Check for existing token in localStorage
     const savedToken = localStorage.getItem("auth_token");
     if (savedToken) {
-      const decoded = verifyToken(savedToken);
-      if (decoded) {
-        setUser({
-          id: decoded.userId,
-          username: decoded.username,
-          email: decoded.email,
-        });
-        setToken(savedToken);
+      // Verify token with API
+      verifyTokenWithAPI(savedToken);
+    } else {
+      setIsLoading(false);
+    }
+  }, []);
+
+  const verifyTokenWithAPI = async (token: string) => {
+    try {
+      const response = await fetch("/api/auth/verify", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const userData = await response.json();
+        setUser(userData.user);
+        setToken(token);
       } else {
         // Token is invalid, remove it
         localStorage.removeItem("auth_token");
       }
+    } catch (error) {
+      console.error("Token verification failed:", error);
+      localStorage.removeItem("auth_token");
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
-  }, []);
+  };
 
   const login = (user: User, token: string) => {
     setUser(user);
